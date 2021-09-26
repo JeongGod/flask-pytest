@@ -1,0 +1,7 @@
+__pycache__
+
+# setting
+config.py
+
+# env
+test_flask
