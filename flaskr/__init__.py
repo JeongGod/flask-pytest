@@ -5,15 +5,15 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from flaskr.controller import hello
-
 db = SQLAlchemy()
 
 def create_app(test_config=None):
     app = Flask(__name__)
 
     # API 설정
+    from flaskr.controller import auth, hello
     app.register_blueprint(hello.bp)
+    app.register_blueprint(auth.bp2)
 
     # Config 설정
     if test_config is None:
@@ -25,5 +25,5 @@ def create_app(test_config=None):
     db.init_app(app)
     Migrate().init_app(app, db)
     from flaskr.models import user
-    
+
     return app
