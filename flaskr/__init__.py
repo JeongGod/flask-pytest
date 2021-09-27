@@ -1,11 +1,10 @@
 import os
 
 import config
+import db_connect
 from flask import Flask
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
 
 def create_app(test_config=None):
     app = Flask(__name__)

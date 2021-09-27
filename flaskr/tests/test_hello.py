@@ -5,6 +5,8 @@ import pytest
 # Scheme Migration
 from alembic.command import upgrade as alembic_upgrade
 from alembic.config import Config as AlembicConfig
+# 현재 db session을 가져오기 위함
+from db_connect import db
 # 롤백하기 위한 세션
 from flask import g
 from flaskr import create_app
@@ -62,6 +64,7 @@ def session(test_db):
     session.rollback()
     session.close()
 
+# request(get) 확인 테스트
 def test_hello(flask_client):
     res = flask_client.get('/api/hello')
     data = json.loads(res.data)
@@ -69,9 +72,10 @@ def test_hello(flask_client):
     assert res.status_code == 200
     assert data == "Hello World"
 
-from flaskr.models.user import *
+from flaskr.models.user import user
 
 
+# db 확인 테스트
 def test_signin(flask_client, session):
     t_user = user('test1', '1111')
     session.add(t_user)
